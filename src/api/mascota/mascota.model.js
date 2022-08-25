@@ -16,4 +16,4 @@ const schema = new Schema(
     }
 );
 
-module.exports = mongoose.model("mascotas", schema);
+module.exports = mongoose.model("mascota", schema);

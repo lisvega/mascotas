@@ -1,6 +1,6 @@
 const Mascota = require("./mascota.model");
 const { setError } = require("../../helpers/errors");
-const { deleteFile } = require("../../middlewares/delete-file");
+const { deleteFile } = require("../../middleware/delete-file");
 
 const getAllMascotas = async (req, res, next) => {
     try {

@@ -1,6 +1,6 @@
 const MascotaRoutes = require("express").Router();
-const { authorize } = require("../../middlewares/auth");
-const upload = require("../../middlewares/file");
+const { authorize } = require("../../middleware/auth");
+const upload = require("../../middleware/file");
 
 const {
     getAllMascotas,
@@ -8,7 +8,7 @@ const {
     createMascota,
     updateMascota,
     deleteMascota,
-} = require("./acoustic.controller");
+} = require("./mascota.controller");
 
 MascotaRoutes.get("/", getAllMascotas);
 MascotaRoutes.get("/:id", getMascotaByID);

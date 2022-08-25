@@ -4,6 +4,8 @@ const cors = require("cors");
 const { connect } = require("./helpers/db");
 const { setUpCloudinary } = require("./helpers/cloudinary");
 
+const MascotaRoutes = require("./api/mascota/mascota.routes");
+
 
 
 
@@ -32,11 +34,17 @@ app.use(
    })
 );
 
+
+
+
+
+
 app.use(express.json({ limit: "1mb" }));
 
 app.use(express.urlencoded({ limit: "1mb", extended: true }));
-
 app.set("secretKey", JWT_SECRET);
+
+app.use("/api/v1/mascota", MascotaRoutes);
 
 
 app.use("*", (req, res, next) => {
