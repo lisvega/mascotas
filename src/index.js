@@ -4,9 +4,10 @@ const cors = require("cors");
 const { connect } = require("./helpers/db");
 const { setUpCloudinary } = require("./helpers/cloudinary");
 
-const AcousticRoutes = require("./api/acoustic/acoustic.routes");
-const ElectricRoutes = require("./api/electric/electric.routes");
-const UserRoutes = require("./api/user/user.routes");
+
+
+
+
 
 dotenv.config();
 const PORT = process.env.PORT;
