@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
         const newMascota = new Mascota(req.body);
         const petnameExist = await Mascota.findOne({ petname: newMascota.petname });
         if (petnameExist) {
-            return next(setError(409, "Mascota already exists"));
+            return next(setError(409, "Mascota created"));
         }
         if (req.file) {
             newMascota.image = req.file.path;
