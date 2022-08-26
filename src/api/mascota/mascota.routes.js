@@ -14,7 +14,7 @@ const {
 
 MascotaRoutes.get("/", getAllMascotas);
 MascotaRoutes.get("/:id", getMascotaByID);
-MascotaRoutes.post("/register", [authorize], upload.single("image"), register);
+MascotaRoutes.post("/register", upload.single("image"), register);
 MascotaRoutes.post("/login", login);
 MascotaRoutes.patch("/:id", [authorize], upload.single("image"), updateMascota);
 MascotaRoutes.delete("/:id", [authorize], deleteMascota);

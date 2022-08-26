@@ -9,7 +9,7 @@ const schema = new Schema(
         nickname: { type: String, required: true },
         password: { type: String, required: true },
         image: { type: String, required: true },
-        type: { type: Number, required: true },
+        type: { type: String, required: true },
         description: { type: String, required: true },
 
     },
