@@ -59,7 +59,6 @@ app.use((error, req, res, next) => {
       .status(error.status || 500)
       .json(error.message || "Unexpected error");
 });
-
 app.disable("x-powered-by");
 
 app.listen(PORT, () => {
