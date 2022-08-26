@@ -7,10 +7,6 @@ const { setUpCloudinary } = require("./helpers/cloudinary");
 const MascotaRoutes = require("./api/mascota/mascota.routes");
 
 
-
-
-
-
 dotenv.config();
 const PORT = process.env.PORT;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -33,10 +29,6 @@ app.use(
       credentials: true,
    })
 );
-
-
-
-
 
 
 app.use(express.json({ limit: "1mb" }));

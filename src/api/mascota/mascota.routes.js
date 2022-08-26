@@ -1,18 +1,21 @@
-const MascotaRoutes = require("express").Router();
+const express = require("express");
+const MascotaRoutes = express.Router();
 const { authorize } = require("../../middleware/auth");
 const upload = require("../../middleware/file");
 
 const {
+    register,
+    login,
     getAllMascotas,
     getMascotaByID,
-    createMascota,
     updateMascota,
     deleteMascota,
 } = require("./mascota.controller");
 
 MascotaRoutes.get("/", getAllMascotas);
 MascotaRoutes.get("/:id", getMascotaByID);
-MascotaRoutes.post("/create", [authorize], upload.single("image"), createMascota);
+MascotaRoutes.post("/register", [authorize], upload.single("image"), register);
+MascotaRoutes.post("/login", login);
 MascotaRoutes.patch("/:id", [authorize], upload.single("image"), updateMascota);
 MascotaRoutes.delete("/:id", [authorize], deleteMascota);
 

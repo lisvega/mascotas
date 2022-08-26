@@ -1,6 +1,47 @@
 const Mascota = require("./mascota.model");
+const bcrypt = require("bcrypt");
+const { createToken } = require("../../helpers/token-action");
 const { setError } = require("../../helpers/errors");
 const { deleteFile } = require("../../middleware/delete-file");
+
+
+
+const register = async (req, res, next) => {
+    try {
+        const newMascota = new Mascota(req.body);
+        const petnameExist = await Mascota.findOne({ petname: newMascota.petname });
+        if (petnameExist) {
+            return next(setError(409, "Mascota already exists"));
+        }
+        if (req.file) {
+            newMascota.image = req.file.path;
+        }
+        const mascotaInDB = await newMascota.save();
+        res.status(201).json(mascotaInDB);
+    } catch (error) {
+        return next(setError(500, error.message || "Failed creating Mascota"));
+    }
+};
+
+
+
+const login = async (req, res, next) => {
+    try {
+        const mascotaInDb = await Mascota.findOne({ petname: req.body.petname });
+        if (!mascotaInDb) return next(setError(404, "Mascota not found"));
+
+        if (bcrypt.compareSync(req.body.password, mascotaInDb.password)) {
+            const token = createToken(mascotaInDb._id, mascotaInDb.password);
+            return res.status(200).json({ mascotaInDb, token });
+        } else {
+            return next(setError(401, "Invalid password"));
+        }
+    } catch (error) {
+        return next(setError(500, error.message || "Failed authenticating Mascota"));
+    }
+};
+
+
 
 const getAllMascotas = async (req, res, next) => {
     try {
@@ -34,23 +75,10 @@ const getMascotaByID = async (req, res, next) => {
     }
 };
 
-const createMascota = async (req, res, next) => {
-    try {
-        const mascota = new Mascota(req.body);
-        if (req.file) {
-            mascota.image = req.file.path;
-        }
-        const mascotaInDB = await mascota.save();
-        return res.status(201).json({
-            message: "Mascota created",
-            mascotaInDB,
-        });
-    } catch (error) {
-        return next(
-            setError(500, error.message | "Failed creating mascota")
-        );
-    }
-};
+
+
+
+
 
 const updateMascota = async (req, res, next) => {
     try {
@@ -97,9 +125,10 @@ const deleteMascota = async (req, res, next) => {
 };
 
 module.exports = {
+    register,
+    login,
     getAllMascotas,
     getMascotaByID,
-    createMascota,
     updateMascota,
     deleteMascota,
 };
